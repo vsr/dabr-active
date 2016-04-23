@@ -1,6 +1,6 @@
 <?php
 
-function url_fetch($url) 
+function url_fetch($url)
 {
 	global $services_time;
 	$ch = curl_init();
@@ -12,23 +12,23 @@ function url_fetch($url)
 	$fetch_start = microtime(1);
 	$response = curl_exec($ch);
 	curl_close($ch);
-	
+
 	$services_time += microtime(1) - $fetch_start;
 	return $response;
 }
 
-function oembed_embed_thumbnails(&$feed) 
+function oembed_embed_thumbnails(&$feed)
 {
-	foreach($feed as &$status) 
+	foreach($feed as &$status)
 	{ // Loop through the feed
-		if(stripos($status->text, 'NSFW') === FALSE) 
+		if(stripos($status->text, 'NSFW') === FALSE)
 		{ // Ignore image fetching for tweets containing NSFW
-			if ($status->entities) 
+			if ($status->entities)
 			{ // If there are entities
 				$entities = $status->entities;
-				if($entities->urls)	
+				if($entities->urls)
 				{
-					foreach($entities->urls as $urls) 
+					foreach($entities->urls as $urls)
 					{	// Loop through the URL entities
 						if($urls->expanded_url != "") {	// Use the expanded URL, if it exists, to pass to Oembed provider
 							$url = $urls->expanded_url;
@@ -36,7 +36,7 @@ function oembed_embed_thumbnails(&$feed)
 						else {
 							$url = $urls->url;
 						}
-						$matched_urls[urlencode($url)][] = $status->id;		
+						$matched_urls[urlencode($url)][] = $status->id_str;
 					}
 				} else {
 					//	No URLs, do nothing
@@ -47,7 +47,7 @@ function oembed_embed_thumbnails(&$feed)
 	}
 
 	//	Reduce the array of empty items
-	foreach ($matched_urls as $key => $value) 
+	foreach ($matched_urls as $key => $value)
 	{
 		if (null == $value)
 		{
@@ -56,11 +56,11 @@ function oembed_embed_thumbnails(&$feed)
 	}
 
 	// Make a single API call to Embedkit.
-	if(defined('EMBEDKIT_KEY') && EMBEDKIT_KEY != "") 
+	if(defined('EMBEDKIT_KEY') && EMBEDKIT_KEY != "")
 	{
 		//	Only the URLs which we're going to pass to Embedkit
 		$justUrls = array_keys($matched_urls);
-	
+
 		$count = count($justUrls);
 		if ($count == 0) return;
 		// if ($count > 20) {
@@ -73,7 +73,7 @@ function oembed_embed_thumbnails(&$feed)
 		$embedly_json = url_fetch($url);
 		$oembeds = json_decode($embedly_json);
 
-		if($oembeds->type != 'error') 
+		if($oembeds->type != 'error')
 		{
 			//	Single statuses don't come back in an array
 			if (!is_array($oembeds))
@@ -81,33 +81,33 @@ function oembed_embed_thumbnails(&$feed)
 				$temp = array(0 => $oembeds);
 				$oembeds = $temp;
 			}
-			
+
 			foreach ($justUrls as $index => $url)
 			{
 				$thumb = "";
 				$title = "";
-				
+
 				if ($oembeds[$index]->thumbnail_url) {
 					//	Direct links to files
 					$thumb = $oembeds[$index]->thumbnail_url;
-				} 
+				}
 
 				if ($oembeds[$index]->title) {
 					//	Direct links to files
 					$title = $oembeds[$index]->title;
 				}
 
-				if ($thumb) 
+				if ($thumb)
 				{	//	Embed the thumbnail
 					$html = theme('external_link', urldecode($url), "<img src=\"" . image_proxy($thumb, "") . "\"" .
 					                                                " title=\"{$title}\" alt=\"{$title}\" class=\"embedded\" />");
-					foreach ($matched_urls[$url] as $statusId) 
+					foreach ($matched_urls[$url] as $statusId)
 					{
 						$feed[$statusId]->text = $feed[$statusId]->text . '<br />' . '<span class="embed">' . $html . '</span>';
 					}
 				} elseif  ($title) 	{	//	Embed a link
 					$html = theme('external_link', urldecode($url), $title);
-					foreach ($matched_urls[$url] as $statusId) 
+					foreach ($matched_urls[$url] as $statusId)
 					{
 						$feed[$statusId]->text = $feed[$statusId]->text . '<br />' . '<span class="embed">' . $html . '</span>';
 					}
