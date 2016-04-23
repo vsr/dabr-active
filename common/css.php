@@ -1,6 +1,6 @@
 <?php
 
-function css() 
+function css()
 {
 //	Get the colours that the user has chosen
 $c = theme('colours');
@@ -21,7 +21,7 @@ $css = "@charset \"UTF-8\";
 
 body{
 	margin:0;
-	font-family:sans-serif;
+	font-family: Corbel, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', 'DejaVu Sans', 'Bitstream Vera Sans', 'Liberation Sans', Verdana, 'Verdana Ref', sans-serif;
 	background:#{$c->body_background};
 	color:#{$c->body_text};
 }
@@ -30,7 +30,7 @@ fieldset {
 	border-radius:1em;
 	max-width:30em;
 }
-	
+
 	#twitterbird {
 		color: #00acee;
 	}
@@ -58,7 +58,7 @@ fieldset {
 
 .actionicons {
 	display: block;
-	margin: 0.3em; 
+	margin: 0.3em;
 	clear: both;
 }
 .actionicons a{
@@ -117,9 +117,9 @@ small,small a{
 }
 
 .menu-text{
-	
+
 	background:#{$c->menu_background};
-	font-family:sans-serif;
+	font-family: Corbel, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', 'DejaVu Sans', 'Bitstream Vera Sans', 'Liberation Sans', Verdana, 'Verdana Ref', sans-serif;
 }
 
 .menu a{
@@ -187,7 +187,7 @@ small,small a{
 .from{
 	font-size:0.75em;
 	color:#{$c->small};
-	font-family:serif;
+	font-family: Corbel, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', 'DejaVu Sans', 'Bitstream Vera Sans', 'Liberation Sans', Verdana, 'Verdana Ref', sans-serif;
 }
 .from a{
 	color:#{$c->small};
