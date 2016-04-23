@@ -38,6 +38,9 @@ define('DEBUG_MODE', 'OFF');
 //Optional: Add google analytics script here
 define('GOOGLE_ANALYTICS', '');
 
+//Optional: Add advert script for header
+define('HEADER_ADVERT', '');
+
 //	Optional: This will display any errors you introduce into the code.
 //	See more at http://php.net/manual/en/function.error-reporting.php
 error_reporting(E_ALL ^ E_NOTICE);

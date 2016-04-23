@@ -163,7 +163,7 @@ function theme_page($title, $content) {
 					<link href="widgets" rel="stylesheet">
 					' . GOOGLE_ANALYTICS . '
 				</head>
-				<body id="thepage">';
+				<body id="thepage">' . HEADER_ADVERT;
 	echo 				$body;
 	if (setting_fetch('colours') == null)
 	{
