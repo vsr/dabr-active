@@ -486,8 +486,8 @@ function theme_timeline($feed, $paginate = true) {
 		}
 		else {
 			$max_id =  $status->id_str;
-			if ($status->original_id) {
-				$max_id =  $status->original_id;
+			if ($status->original_id_str) {
+				$max_id =  $status->original_id_str;
 			}
 		}
 		$time = strtotime($status->created_at);
