@@ -23,7 +23,7 @@ define('ENCRYPTION_KEY', 'Example Key - Change Me!');
 
 //	Everything in this section is optional. Add it if you wish
 
-//	Optional: Embedkit Key 
+//	Optional: Embedkit Key
 //	Embed image previews in tweets
 //	Free sign up at https://embedkit.com/
 define('EMBEDKIT_KEY', '');
@@ -34,6 +34,9 @@ define('IMAGE_PROXY_URL', '');
 
 //	Optional: Enable to view page processing and API time
 define('DEBUG_MODE', 'OFF');
+
+//Optional: Add google analytics script here
+define('GOOGLE_ANALYTICS', '');
 
 //	Optional: This will display any errors you introduce into the code.
 //	See more at http://php.net/manual/en/function.error-reporting.php

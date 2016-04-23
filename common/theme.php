@@ -161,6 +161,7 @@ function theme_page($title, $content) {
 					<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 					<link rel="icon" href="images/favicon.png">
 					<link href="widgets" rel="stylesheet">
+					' . GOOGLE_ANALYTICS . '
 				</head>
 				<body id="thepage">';
 	echo 				$body;
